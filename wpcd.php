@@ -107,12 +107,6 @@ class WPCD_Init {
 			}
 		}
 
-		/* Check for incompatible add-ons */
-		if ( is_admin() && ! $this->check_all_addons_compatible() ) {
-			// You will likely not get here because if the check shows add-ons are incompatible we will deactivate ourselves.
-			return false;
-		}
-
 		/* Use init hook to load up required files */
 		add_action( 'init', array( $this, 'required_files' ), -20 );
 
@@ -183,9 +177,6 @@ class WPCD_Init {
 	 * @param String $network_wide network_wide.
 	 */
 	public function activate( $network_wide ) {
-
-		// If all add-ons are not compatible, deactivate ourselves.
-		$this->check_all_addons_compatible();
 
 		require_once wpcd_path . 'includes/core/class-wpcd-base.php';
 		require_once wpcd_path . 'includes/core/class-wpcd-posts-base.php';
